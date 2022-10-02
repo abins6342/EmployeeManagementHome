@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    
+</head>
+<body>
+    <form>
+        <input type="text" id="empName" placeholder="Name" />
+        <br />
+        <input type="text" id="empDepartment" placeholder="Department" />
+        <br />
+        <input type="text" id="empAge" placeholder="Age" />
+        <br />
+        <input type="text" id="empAddress" placeholder="Address" />
+
+        <input type="button" value="Submit" onclick="BtnClick()" />
+
+    </form>
+
+</body>
+</html>
+
+<script>
+    function BtnClick() {
+        var name = $("#empName").val();
+        var department = $("#empDepartment").val();
+        var age = $("#empAge").val();
+        var address = $("#empAddress").val();
+
+        var obj = {
+            Name: name,
+            Department=department,
+            Age=age,
+            Address=address
+        }
+        SubmitForm(obj);
+    }
+
+    function SubmitForm(obj) {
+        $(document).ready(function () {
+            $(".employeeEdit").on("click", function (event) {
+                $.ajax({
+                    url: 'https://localhost:44383/api/internal/employee/insertemployees',
+                    method: "POST",
+                    data: obj,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    }
+</script>
